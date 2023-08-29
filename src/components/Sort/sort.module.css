@@ -1,0 +1,28 @@
+.btn {
+    width: 100%;
+    padding: 0;
+    --bs-btn-bg: none;
+    --bs-btn-hover-bg: none;
+    --bs-btn-border-color: blueviolet;
+    --bs-btn-hover-border-color: blueviolet;
+    --bs-btn-active-border-color: blueviolet;
+    --bs-btn-disabled-bg: none; 
+    --bs-btn-disabled-border-color: none;
+    --bs-btn-active-bg: none;
+    transition: box-shadow .3s;
+}
+
+.btn:hover {
+    box-shadow: 1px 5px 10px blueviolet;
+
+}
+
+.menu {
+    --bs-dropdown-bg: #343a40;
+}   
+
+.item {
+    color: #fff;
+    --bs-dropdown-link-hover-color: blueviolet;
+    --bs-dropdown-link-hover-bg: none;
+}

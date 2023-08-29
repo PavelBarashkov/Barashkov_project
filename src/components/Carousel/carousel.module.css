@@ -1,0 +1,29 @@
+
+.indicators {
+    display: flex;
+    column-gap: 10px;
+    width: 100%;
+    /* overflow-x: scroll; */
+    margin-top: 25PX;
+}
+
+.indicators_img {
+    width: 100%;
+}
+
+.carousel-indicators {
+    display: none;
+}
+
+.indicators_item {
+    
+    width: 25%;
+}
+
+.indicators_item:hover {
+    cursor: pointer;
+}
+
+.active {
+    box-shadow: 0px 2px 4px lightgray;
+}

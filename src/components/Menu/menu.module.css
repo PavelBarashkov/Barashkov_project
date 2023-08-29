@@ -1,0 +1,13 @@
+.module {
+    display: flex;
+
+    width: 100%;
+}
+
+.text_info {
+    width: 50%;
+}
+
+.dropdown {
+    width: 50%;
+}
