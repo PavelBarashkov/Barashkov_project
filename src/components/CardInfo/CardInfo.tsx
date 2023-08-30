@@ -24,7 +24,14 @@ interface ICardProps {
     card: ICardInfo;
 }
 
+
+
 export const CardInfo = ({ card }: ICardProps) => {
+    function isDate(str: string): string {
+        const ruDate = str.split('-').reverse().join('.');
+        return ruDate;
+    }
+    const date = isDate(card.release_date);
     return (
         <>
             {card &&  (
@@ -48,7 +55,7 @@ export const CardInfo = ({ card }: ICardProps) => {
                                         {`Дата выхода:`} 
                                     </div>
                                     <div className={classes.info}>
-                                        {card?.release_date}
+                                        {date}
                                     </div>
                                 </div>
                                 <div className={classes.card__developer}>

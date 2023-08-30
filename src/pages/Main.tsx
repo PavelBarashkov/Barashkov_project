@@ -6,17 +6,29 @@ import { Pagination } from '../components/pagination/Pagitation';
 import { fetchGames, nextPage, previousPage } from '../redux/slices/gamesSlice';
 import { useAppDispatch } from '../redux/hooks/hooks';
 import { Menu } from '../components/Menu/Menu';
+import { fetchGamesFilter } from '../redux/slices/gameFilterSlice';
 
 
 export const Main = () => {
     const dispatch = useAppDispatch();
     const { games, loading, error, currentPageItems, totalPages, currentPage, } = useSelector((state: any) => state.games)
-    const {loadingFilter, errorFilter} = useSelector((state: any) => state.filter)
+    const {
+        loadingFilter,
+        errorFilter,
+        sortBy,
+        filterPlatform,
+        filterCategory,
+    } = useSelector((state: any) => state.filter);
 
     useEffect(() => {
-        dispatch(fetchGames());
 
-      }, []);
+        if (sortBy !== null || filterPlatform  !== null || filterCategory!== null) {
+            dispatch(fetchGamesFilter({ sort: sortBy.data, platform: filterPlatform.data, category: filterCategory.data }));
+        } else {
+            // dispatch(fetchGames()); // Иначе используйте общий список игр
+        }
+
+    }, [dispatch, sortBy, filterPlatform, filterCategory]);
     return (
         <Container className='main'>
             <Row>
@@ -36,14 +48,18 @@ export const Main = () => {
                                 {games.length === 0 ? 
                                     <div>Пусто</div>
                                     :
+                                    <>
                                     <ListGames games={currentPageItems}/>
+                                    <Pagination 
+                                        currentPage={currentPage} 
+                                        totalPages={totalPages} 
+                                        handlerBtnNext={() => dispatch(nextPage())} 
+                                        handlerBtnPrevious={() => dispatch(previousPage())}
+                                    />
+                                    </>
+                                    
                                 }
-                                <Pagination 
-                                    currentPage={currentPage} 
-                                    totalPages={totalPages} 
-                                    handlerBtnNext={() => dispatch(nextPage())} 
-                                    handlerBtnPrevious={() => dispatch(previousPage())}
-                                />
+                                
                             </Col>
                         }
                     

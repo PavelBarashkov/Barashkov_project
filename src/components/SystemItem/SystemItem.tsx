@@ -19,7 +19,7 @@ export const SystemItem = ({system_requirements}: ISystemItem) => {
                 {`os:`}
             </div>
             <div className={classes.info}>
-                {system_requirements?.os === null ? '-' : system_requirements.os}
+                {system_requirements && system_requirements?.os  ? system_requirements?.os : '-'}
             </div>
         </div>
         <div className={classes.system__item}>
@@ -27,7 +27,7 @@ export const SystemItem = ({system_requirements}: ISystemItem) => {
                 {`processor:`}
             </div>
             <div className={classes.info}>
-                {system_requirements?.processor === null ? '-' : system_requirements.processor}
+                {system_requirements && system_requirements?.processor  ? system_requirements.processor : '-'}
             </div>
         </div>
         <div className={classes.system__item}>
@@ -35,7 +35,7 @@ export const SystemItem = ({system_requirements}: ISystemItem) => {
                 {`memory:`}
             </div>
             <div className={classes.info}>
-                {system_requirements?.memory === null ? '-' : system_requirements.memory }
+                {system_requirements && system_requirements?.memory ? system_requirements.memory :  '-'}
             </div>
         </div>
         <div className={classes.system__item}>
@@ -43,7 +43,7 @@ export const SystemItem = ({system_requirements}: ISystemItem) => {
                 {`graphics:`}
             </div>
             <div className={classes.info}>
-                {system_requirements?.graphics === null ? '-' : system_requirements.graphics}
+                {system_requirements && system_requirements?.graphics ? system_requirements.graphics : '-'}
             </div>
         </div>
         <div className={classes.system__item}>
@@ -51,7 +51,7 @@ export const SystemItem = ({system_requirements}: ISystemItem) => {
                 {`storage:`}
             </div>
             <div className={classes.info}>
-                {system_requirements?.storage === null ? '-' : system_requirements.storage}
+                {system_requirements && system_requirements?.storage ? system_requirements.storage : '-' }
             </div>
         </div>
     </div>

@@ -2,6 +2,7 @@ import React from "react";
 import { GameInfo } from "../pages/GameInfo";
 import { Main } from "../pages/Main";
 import { MAIN_ROUTE, GAME_INFO_ROUTE} from "../utils/consts";
+import { ErrorPage } from "../pages/ErrorPage";
 
 interface Path {
     path: string
@@ -19,6 +20,6 @@ export const publicRoutes: Path[] = [
     },
     {
         path: '/*',
-        element: <Main/>
+        element: <ErrorPage/>
     }
 ]
