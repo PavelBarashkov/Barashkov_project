@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux';
 import { ListSortBy, listCotegory, listPlatform } from '../../utils/listData';
 import classes from "./menu.module.css";
 import { useAppDispatch } from '../../redux/hooks/hooks';
-import { bySelected, categorySelected, fetchGamesFilter, platformSelected } from '../../redux/slices/gameFilterSlice';
+import { bySelected, categorySelected, platformSelected } from '../../redux/slices/gamesSlice';
 
 export const Menu = () => {
     const dispatch = useAppDispatch();
-    const {sortBy, filterCategory, filterPlatform } = useSelector((state: any) => state.filter)
+    const {sortBy, filterCategory, filterPlatform } = useSelector((state: any) => state.games)
 
     const platforms = listPlatform;
     const genres = listCotegory;
@@ -39,10 +39,9 @@ export const Menu = () => {
             params.category = data;
             dispatch(categorySelected({
                 value: value,
-                data: value,
+                data: data,
             }))
         }
-        dispatch(fetchGamesFilter(params));
     }
     return (
         <div>

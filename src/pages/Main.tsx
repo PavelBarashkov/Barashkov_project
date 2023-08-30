@@ -6,29 +6,35 @@ import { Pagination } from '../components/pagination/Pagitation';
 import { fetchGames, nextPage, previousPage } from '../redux/slices/gamesSlice';
 import { useAppDispatch } from '../redux/hooks/hooks';
 import { Menu } from '../components/Menu/Menu';
-import { fetchGamesFilter } from '../redux/slices/gameFilterSlice';
+// import { fetchGamesFilter } from '../redux/slices/gameFilterSlice';
 
 
 export const Main = () => {
     const dispatch = useAppDispatch();
-    const { games, loading, error, currentPageItems, totalPages, currentPage, } = useSelector((state: any) => state.games)
+    // const { games, loading, error, currentPageItems, totalPages, currentPage, } = useSelector((state: any) => state.games)
     const {
+        games, 
+        loading, 
+        error, 
+        currentPageItems, 
+        totalPages, 
+        currentPage, 
         loadingFilter,
         errorFilter,
         sortBy,
         filterPlatform,
         filterCategory,
-    } = useSelector((state: any) => state.filter);
+    } = useSelector((state: any) => state.games);
 
     useEffect(() => {
 
         if (sortBy !== null || filterPlatform  !== null || filterCategory!== null) {
-            dispatch(fetchGamesFilter({ sort: sortBy.data, platform: filterPlatform.data, category: filterCategory.data }));
+            dispatch(fetchGames({ sort: sortBy.data, platform: filterPlatform.data, category: filterCategory.data }));
         } else {
             // dispatch(fetchGames()); // Иначе используйте общий список игр
         }
 
-    }, [dispatch, sortBy, filterPlatform, filterCategory]);
+    }, [ sortBy, filterPlatform, filterCategory]);
     return (
         <Container className='main'>
             <Row>

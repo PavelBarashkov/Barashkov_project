@@ -9,6 +9,11 @@ interface IGameProps {
 }
 
 export const GameItem = ({game, ...props}: IGameProps) => {
+    function isDate(str: string): string {
+        const Date = str.split('-').reverse().join('.');
+        return Date;
+    }
+    const ruDate = isDate(game.release_date);
     return (
         <Col {...props} md={4}  className="mb-4">
             <Card className={classes.card}>
@@ -28,7 +33,7 @@ export const GameItem = ({game, ...props}: IGameProps) => {
                             </div>
                             <div>
 
-                        {`Релиз: ${game.release_date}`}
+                        {`Релиз: ${ruDate}`}
                             </div>
                         </div>
                     </Card.Text>

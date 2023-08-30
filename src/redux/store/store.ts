@@ -1,12 +1,12 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import gamesSlice from '../slices/gamesSlice';
-import gameFilterSlice from '../slices/gameFilterSlice';
+// import gameFilterSlice from '../slices/gameFilterSlice';
 import gameInfoSlice from '../slices/gameInfoSlice';
 
 export const store = configureStore({
   reducer: {
     games: gamesSlice,
-    filter: gameFilterSlice,
+    // filter: gameFilterSlice,
     gameInfo: gameInfoSlice
   },
 });

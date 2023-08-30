@@ -9,10 +9,28 @@ export interface IGamesState {
     totalPages: number;
     currentPage: number;
     currentPageItems: IGame[]; 
+    sortBy: {
+        value: string | null,
+        data: string | null
+    };
+    filterCategory: {
+        value: string | null,
+        data: string | null
+    };
+    filterPlatform: {
+        value: string | null,
+        data: string | null
+    };
     currentRequest: {
         controller: AbortController | undefined,
         promise: Promise<any> | undefined,
     };
+}
+
+interface FetchGamesFilterParams {
+    sort: string | null;
+    platform: string | null;
+    category: string | null;
 }
 
 const initialState = {
@@ -22,6 +40,18 @@ const initialState = {
     totalPages: 0,
     currentPage: 1,
     currentPageItems: [],
+    sortBy: {
+        value: 'без сортировки',
+        data: null
+    },
+    filterCategory: {
+        value: 'без сортировки',
+        data: null
+    },
+    filterPlatform: {
+        value: 'без сортировки',
+        data: null
+    },
     currentRequest: {
         controller: undefined,
         promise: undefined,
@@ -30,14 +60,13 @@ const initialState = {
 
 export const fetchGames = createAsyncThunk(
     'Games/fetchGames',
-    async(_, { rejectWithValue }) => {
+    async(params: FetchGamesFilterParams, { rejectWithValue }) => {
+        const { sort, platform, category } = params;
         try {
             const controller = new AbortController();
-            const promise = Service.getAllGames(controller.signal);
-
-            const response = await promise;
-            if (response.data.status === 0) {
-                return rejectWithValue("Пусто");
+            const response = await Service.sortGames(sort, platform, category, controller.signal);
+            if (response.data.status === 0 ) {
+                return [];
             }
             if (!response) {
                 return rejectWithValue("Loading games error!");
@@ -75,6 +104,18 @@ export const GamesSlice = createSlice({
             state.currentPageItems = action.payload.slice(0, 9);
             state.currentPage = 1;
         },
+        bySelected: (state, action) => {
+            state.sortBy.value = action.payload.value;
+            state.sortBy.data = action.payload.data;
+        },
+        platformSelected: (state, action) => {
+            state.filterPlatform.value = action.payload.value;
+            state.filterPlatform.data = action.payload.data;
+        },
+        categorySelected: (state, action) => {
+            state.filterCategory.value = action.payload.value;
+            state.filterCategory.data = action.payload.data;
+        },
         setCurrentRequest: (state, action) => {
             if (state.currentRequest.controller) {
                 state.currentRequest.controller.abort();
@@ -82,6 +123,7 @@ export const GamesSlice = createSlice({
             state.currentRequest.controller = action.payload?.controller;
             state.currentRequest.promise = action.payload?.promise;
         },
+        
     },
     extraReducers: (builder) => {
         builder
@@ -103,5 +145,5 @@ export const GamesSlice = createSlice({
     }
 })
 
-export const { nextPage, previousPage, setCurrentRequest } = GamesSlice.actions;
+export const { nextPage, previousPage, setCurrentRequest, bySelected, platformSelected, categorySelected } = GamesSlice.actions;
 export default GamesSlice.reducer;
