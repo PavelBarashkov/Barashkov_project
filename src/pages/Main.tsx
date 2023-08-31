@@ -56,7 +56,7 @@ export const Main = () => {
                             :
                             <Col md={9}>
                                 {games.length === 0 ? 
-                                    <div>Пусто</div>
+                                    <div>Игры с такими фильтрами не найдены </div>
                                     :
                                     <>
                                     <ListGames games={currentPageItems}/>

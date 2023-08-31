@@ -60,12 +60,12 @@ const initialState = {
 
 export const fetchGames = createAsyncThunk(
     'Games/fetchGames',
-    async(params: FetchGamesFilterParams, { rejectWithValue }) => {
+    async (params: FetchGamesFilterParams, { rejectWithValue }) => {
         const { sort, platform, category } = params;
         try {
             const controller = new AbortController();
             const response = await Service.sortGames(sort, platform, category, controller.signal);
-            if (response.data.status === 0 ) {
+            if (response.data.status === 0) {
                 return [];
             }
             if (!response) {
@@ -73,10 +73,30 @@ export const fetchGames = createAsyncThunk(
             }
             return response.data;
         } catch (e: any) {
-            return rejectWithValue(e.message);
+            try {
+            const controller = new AbortController();
+
+                const alternativeResponse = await Service.sortGames(sort, platform, category, controller.signal);
+                if (!alternativeResponse) {
+                    return rejectWithValue("2 loading games error!");
+                }
+                return alternativeResponse.data;
+            } catch (error) {
+                try {
+                    const controller = new AbortController();
+                    const thirdResponse = await Service.sortGames(sort, platform, category, controller.signal);
+                    if (!thirdResponse) {
+                        return rejectWithValue("3 loading games error!");
+                    }
+                    return thirdResponse.data;
+                } catch (finalError) {
+                    return rejectWithValue("All requests failed!");
+                }
+            }
         }
     }
 )
+
 
 export const GamesSlice = createSlice({
     name: 'games',
