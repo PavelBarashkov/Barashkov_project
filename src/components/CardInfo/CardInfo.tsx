@@ -2,6 +2,7 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 import classes from './cardInfo.module.css';
 import { SystemItem } from '../SystemItem/SystemItem';
+import toStringRuDate from '../../utils/toStringRuDate';
 
 interface ICardInfo {
     thumbnail: string;
@@ -27,11 +28,8 @@ interface ICardProps {
 
 
 export const CardInfo = ({ card }: ICardProps) => {
-    function isDate(str: string): string {
-        const ruDate = str.split('-').reverse().join('.');
-        return ruDate;
-    }
-    const date = isDate(card.release_date);
+    const ruDate = toStringRuDate(card.release_date);
+
     return (
         <>
             {card &&  (
@@ -55,7 +53,7 @@ export const CardInfo = ({ card }: ICardProps) => {
                                         {`Дата выхода:`} 
                                     </div>
                                     <div className={classes.info}>
-                                        {date}
+                                        {ruDate}
                                     </div>
                                 </div>
                                 <div className={classes.card__developer}>

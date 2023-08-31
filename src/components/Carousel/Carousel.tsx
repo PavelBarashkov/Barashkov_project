@@ -33,7 +33,7 @@ export const Carousels = ({ imgs }: ICarouselsProps) => {
             </Carousel>
             <div className={classes.indicators}>
                 {imgs && imgs.map((img, index) => (
-                    <div className={`${classes.indicators_item} ${index === activeIndex ? classes.active : ''}`}>
+                    <div key={img.id} className={`${classes.indicators_item} ${index === activeIndex ? classes.active : ''}`}>
                         <img
                             className={classes.indicators_img}
                             key={img.id}

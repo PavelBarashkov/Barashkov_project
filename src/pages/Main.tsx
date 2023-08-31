@@ -3,15 +3,13 @@ import { useSelector } from 'react-redux';
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import { ListGames } from '../components/ListGames/ListGames';
 import { Pagination } from '../components/pagination/Pagitation';
-import { fetchGames, nextPage, previousPage } from '../redux/slices/gamesSlice';
+import { fetchGames, nextPage, previousPage, upDataFilter } from '../redux/slices/gamesSlice';
 import { useAppDispatch } from '../redux/hooks/hooks';
 import { Menu } from '../components/Menu/Menu';
-// import { fetchGamesFilter } from '../redux/slices/gameFilterSlice';
 
 
 export const Main = () => {
     const dispatch = useAppDispatch();
-    // const { games, loading, error, currentPageItems, totalPages, currentPage, } = useSelector((state: any) => state.games)
     const {
         games, 
         loading, 
@@ -30,23 +28,29 @@ export const Main = () => {
 
         if (sortBy !== null || filterPlatform  !== null || filterCategory!== null) {
             dispatch(fetchGames({ sort: sortBy.data, platform: filterPlatform.data, category: filterCategory.data }));
-        } else {
-            // dispatch(fetchGames()); // Иначе используйте общий список игр
-        }
-
+        } 
     }, [ sortBy, filterPlatform, filterCategory]);
+
+    function handlerBtnFilter(dataType: string, e: any) {
+        let params = {
+        event: e,
+        dataType: dataType,
+        };
+        dispatch(upDataFilter(params))
+    }
     return (
         <Container className='main'>
             <Row>
                 <Col md={3}>
-                    <Menu />
+                    <Menu handlerBtnFilter={handlerBtnFilter}/>
                 </Col>
-                    {error || errorFilter && 
+                    {error ? 
                         <>
                             <h3>{error}</h3>
                             <h3>{errorFilter}</h3>
                         </>
-                    }
+                        :
+                        <>
                         {loading || loadingFilter ?
                             <Spinner animation="grow" />
                             :
@@ -68,8 +72,9 @@ export const Main = () => {
                                 
                             </Col>
                         }
+                        </>
                     
-               
+                    }
             </Row>
         </Container>
     );

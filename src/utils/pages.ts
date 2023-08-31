@@ -1,4 +1,16 @@
-export const calculateButtonRange = (currentPage: number, totalPages: number) => {
+interface ButtonData {
+    type: 'prev' | 'next';
+    label: string;
+    disabled: boolean;
+}
+
+interface ButtonRange {
+    prevButton: ButtonData;
+    currentPage: number;
+    nextButton: ButtonData;
+}
+
+export const calculateButtonRange = (currentPage: number, totalPages: number): ButtonRange => {
     return {
         prevButton: {
             type: 'prev',

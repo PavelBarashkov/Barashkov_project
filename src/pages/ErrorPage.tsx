@@ -1,16 +1,16 @@
-import React from 'react'
-import { Button, Col, Container, Row } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
-import { MAIN_ROUTE } from '../utils/consts';
+import { MAIN_ROUTE } from '../routes/consts';
+import { MyButton } from '../components/MyButton/MyButton';
 
 export const ErrorPage = () => {
     const navigat = useNavigate();
   return (
-    <Container style={{display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%'}}>
+    <Container style={{display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', flexDirection: 'column'}}>
         <div>
-            <h1>404</h1>
+            <h1>404 Страница не найдена </h1>
         </div> 
-        <Button onClick={() => navigat(MAIN_ROUTE)}>Вернуться на главную</Button>
+        <MyButton onClick={() => navigat(MAIN_ROUTE)}>Вернуться на главную</MyButton>
     </Container>
   )
 }

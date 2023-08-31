@@ -37,3 +37,16 @@
     transform: translateY(0px);
   }
 }
+
+.main {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.gameInfo-Page {
+    margin-bottom: 40px;
+}
+
+.carousel-indicators {
+    display: none;
+}

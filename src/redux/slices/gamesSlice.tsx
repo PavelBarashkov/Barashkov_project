@@ -104,6 +104,9 @@ export const GamesSlice = createSlice({
             state.currentPageItems = action.payload.slice(0, 9);
             state.currentPage = 1;
         },
+        setStartPage: (state) => {
+            state.currentPage = 1;
+        },
         bySelected: (state, action) => {
             state.sortBy.value = action.payload.value;
             state.sortBy.data = action.payload.data;
@@ -123,6 +126,21 @@ export const GamesSlice = createSlice({
             state.currentRequest.controller = action.payload?.controller;
             state.currentRequest.promise = action.payload?.promise;
         },
+        upDataFilter: (state, action) => {
+            const {event, dataType} = action.payload;
+                const value = event.value;
+                const data = event.data;
+            if(dataType === 'sort') {
+                state.sortBy.value = value;
+                state.sortBy.data = data;
+            } else if (dataType === 'platform') {
+                state.filterPlatform.value = value;
+                state.filterPlatform.data = data;
+            } else if (dataType === 'category') {
+                state.filterCategory.value = value;
+                state.filterCategory.data = data;
+            }
+        }
         
     },
     extraReducers: (builder) => {
@@ -145,5 +163,5 @@ export const GamesSlice = createSlice({
     }
 })
 
-export const { nextPage, previousPage, setCurrentRequest, bySelected, platformSelected, categorySelected } = GamesSlice.actions;
+export const { nextPage, previousPage, setCurrentRequest , upDataFilter, setStartPage } = GamesSlice.actions;
 export default GamesSlice.reducer;

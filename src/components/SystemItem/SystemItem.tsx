@@ -1,4 +1,3 @@
-import React from 'react'
 import classes from '../CardInfo/cardInfo.module.css'
 interface ISystemItem {
     system_requirements: {

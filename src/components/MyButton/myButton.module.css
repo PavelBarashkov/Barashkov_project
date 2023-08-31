@@ -1,0 +1,17 @@
+.myBtn {
+    background-color: blueviolet;
+    padding: 6px 15px;
+    color: #ffff;
+    width: 200px;
+    border-radius: 8px;
+    text-align: center;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.myBtn:hover {
+    cursor: pointer;
+    background-color: rgb(90, 19, 156);
+
+}

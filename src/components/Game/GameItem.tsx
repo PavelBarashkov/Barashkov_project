@@ -1,7 +1,7 @@
-import React from 'react'
-import { Card, Col, ListGroup } from 'react-bootstrap'
+import { Card, Col } from 'react-bootstrap'
 import { IGame } from '../../models/IGame';
 import classes from './game.module.css';
+import toStringRuDate from '../../utils/toStringRuDate';
 
 interface IGameProps {
     game: IGame;
@@ -9,11 +9,7 @@ interface IGameProps {
 }
 
 export const GameItem = ({game, ...props}: IGameProps) => {
-    function isDate(str: string): string {
-        const Date = str.split('-').reverse().join('.');
-        return Date;
-    }
-    const ruDate = isDate(game.release_date);
+    const ruDate = toStringRuDate(game.release_date);
     return (
         <Col {...props} md={4}  className="mb-4">
             <Card className={classes.card}>
